@@ -1,0 +1,120 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "ClientRequestToken": {
+                    "description": "The idempotent token that's used to identify the start request. If you use the same token with multiple <code>StartDocumentTextDetection</code> requests, the same <code>JobId</code> is returned. Use <code>ClientRequestToken</code> to prevent the same job from being accidentally started more than once. ",
+                    "maxLength": 64,
+                    "minLength": 1,
+                    "pattern": "^[a-zA-Z0-9-_]+$",
+                    "type": "string"
+                },
+                "DocumentLocation": {
+                    "description": "The location of the document to be processed.",
+                    "properties": {
+                        "S3Object": {
+                            "description": "The Amazon S3 bucket that contains the input document.",
+                            "properties": {
+                                "Bucket": {
+                                    "description": "The name of the S3 bucket.",
+                                    "maxLength": 255,
+                                    "minLength": 3,
+                                    "pattern": "[0-9A-Za-z\\.\\-_]*",
+                                    "type": "string"
+                                },
+                                "Name": {
+                                    "description": "The file name of the input document. It must be an image file (.JPG or .PNG format). Asynchronous operations also support PDF files.",
+                                    "maxLength": 1024,
+                                    "minLength": 1,
+                                    "pattern": ".*\\S.*",
+                                    "type": "string"
+                                },
+                                "Version": {
+                                    "description": "If the bucket has versioning enabled, you can specify the object version. ",
+                                    "maxLength": 1024,
+                                    "minLength": 1,
+                                    "pattern": ".*\\S.*",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "JobTag": {
+                    "description": "A unique identifier you specify to identify the job in the completion status that's published to the Amazon Simple Notification Service (Amazon SNS) topic.",
+                    "maxLength": 64,
+                    "minLength": 1,
+                    "pattern": "[a-zA-Z0-9_.\\-:]+",
+                    "type": "string"
+                },
+                "NotificationChannel": {
+                    "description": "The Amazon SNS topic ARN that you want Amazon Textract to publish the completion status of the operation to. ",
+                    "properties": {
+                        "RoleArn": {
+                            "description": "The Amazon Resource Name (ARN) of an IAM role that gives Amazon Textract publishing permissions to the Amazon SNS topic. ",
+                            "maxLength": 2048,
+                            "minLength": 20,
+                            "pattern": "arn:([a-z\\d-]+):iam::\\d{12}:role/?[a-zA-Z_0-9+=,.@\\-_/]+",
+                            "type": "string"
+                        },
+                        "SNSTopicArn": {
+                            "description": "The Amazon SNS topic that Amazon Textract posts the completion status to.",
+                            "maxLength": 1024,
+                            "minLength": 20,
+                            "pattern": "(^arn:([a-z\\d-]+):sns:[a-zA-Z\\d-]{1,20}:\\w{12}:.+$)",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "SNSTopicArn",
+                        "RoleArn"
+                    ],
+                    "type": "object"
+                }
+            },
+            "required": [
+                "DocumentLocation"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

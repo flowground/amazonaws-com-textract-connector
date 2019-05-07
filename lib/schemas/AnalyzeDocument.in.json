@@ -1,0 +1,100 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "Document": {
+                    "description": "The input document as base64-encoded bytes or an Amazon S3 object. If you use the AWS CLI to call Amazon Textract operations, you can't pass image bytes. The document must be an image in JPG or PNG format.",
+                    "properties": {
+                        "Bytes": {
+                            "description": "A blob of documents bytes. The maximum size of a document that's provided in a blob of bytes is 5 MB.",
+                            "maxLength": 5242880,
+                            "minLength": 1,
+                            "type": "string"
+                        },
+                        "S3Object": {
+                            "description": "Identifies an S3 object as the document source. The maximum size of a document stored in an S3 bucket is 5 MB.",
+                            "properties": {
+                                "Bucket": {
+                                    "description": "The name of the S3 bucket.",
+                                    "maxLength": 255,
+                                    "minLength": 3,
+                                    "pattern": "[0-9A-Za-z\\.\\-_]*",
+                                    "type": "string"
+                                },
+                                "Name": {
+                                    "description": "The file name of the input document. It must be an image file (.JPG or .PNG format). Asynchronous operations also support PDF files.",
+                                    "maxLength": 1024,
+                                    "minLength": 1,
+                                    "pattern": ".*\\S.*",
+                                    "type": "string"
+                                },
+                                "Version": {
+                                    "description": "If the bucket has versioning enabled, you can specify the object version. ",
+                                    "maxLength": 1024,
+                                    "minLength": 1,
+                                    "pattern": ".*\\S.*",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "FeatureTypes": {
+                    "description": "A list of the types of analysis to perform. Add TABLES to the list to return information about the tables detected in the input document. Add FORMS to return detected fields and the associated text. To perform both types of analysis, add TABLES and FORMS to <code>FeatureTypes</code>.",
+                    "items": {
+                        "enum": [
+                            "TABLES",
+                            "FORMS"
+                        ],
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "Document",
+                "FeatureTypes"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}
